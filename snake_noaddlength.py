@@ -12,11 +12,11 @@ class Snake:
         self.isgameovered=0
         self.apply()
     def _move(self,x,y):
-        new_dot=list(self.dots[-1])
+        new_dot=self.dots[-1]
         new_dot[0]+=x
         new_dot[1]+=y
         self.dots.append(new_dot)
-        if self.dots[-1]!=self.apple:del self.dots[0]
+        del self.dots[0]
         # self.apply()
     def move(self,action):
         if self.isgameovered:return
@@ -25,12 +25,11 @@ class Snake:
         self.last_dir=action
         if self.dots[-1]==self.apple:
             self.score+=1
-            # new_dot=list(self.dots[0])
+            # new_dot=list(self.dots[-1])
             # new_dot[0]+=self.x_y_action[self.last_dir][0]
             # new_dot[1]+=self.x_y_action[self.last_dir][1]
-            # self.dots.insert(0,new_dot)
+            # self.dots.append(new_dot)
             self.apple=self.gen_apple()
-            while self.apple in self.dots:self.apple=self.gen_apple()
         self.apply()
     def isgameover(self):
         return (self.dots[-1] in self.dots[:-1]) or min(self.dots[-1])<0 or max(self.dots[-1])==self.size
